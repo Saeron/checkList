@@ -68,7 +68,6 @@ app.post("/update", async (req, res, next) => {
         return task._id != req.body._id;
       });
       result.push(item);
-      console.log(item);
       res.json(item);
       return list.save();
     });

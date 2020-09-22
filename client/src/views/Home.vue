@@ -57,7 +57,7 @@ export default {
     }
     },
     redirectGithub() {
-      window.location = "https://github.com/Saeron/node/tree/master/todo";
+      window.location = "https://github.com/Saeron/checkList";
     }
   }
 };
