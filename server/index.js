@@ -9,7 +9,7 @@ require("dotenv").config();
 const TaskEntry = require("./models/task");
 const ListEntry = require("./models/listTasks");
 
-mongoose.connect(process.env.DATABASE_URL, {
+mongoose.connect(process.env.DATABASE_URL || "mongodb://localhost:27017/todo", {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useCreateIndex: true,
@@ -52,7 +52,7 @@ app.post("/update", async (req, res, next) => {
     const entries = await ListEntry.findOne({
       uuid: req.body.uuid,
     }).then((list) => {
-      if(!list){
+      if (!list) {
         const error = new Error("List doesn't exits");
         res.status(401);
         next(error);
@@ -75,15 +75,6 @@ app.post("/update", async (req, res, next) => {
     next(error);
   }
 });
-
-// app.get("/list", async (req, res, next) => {
-//   try {
-//     const entries = await TaskEntry.find();
-//     res.json(entries);
-//   } catch (error) {
-//     next(error);
-//   }
-// });
 
 async function createList(req, res, next) {
   req.body.uuid = uuidv4();

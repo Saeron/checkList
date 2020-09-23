@@ -11,7 +11,12 @@
     <form class="mb-5 mt-3" @submit.prevent="addTask()">
       <div class="field has-addons">
         <div class="control is-expanded">
-          <input v-model="newTask.task" class="input" type="text" placeholder="Enter a new task." />
+          <input
+            v-model="newTask.task"
+            class="input"
+            type="text"
+            placeholder="Enter a new task."
+          />
         </div>
         <div class="control">
           <button class="button is-primary">Add</button>
@@ -24,7 +29,7 @@
         :key="item._id"
         class="block-list has-text-primary-dark has-background-primary-light"
       >
-        {{item.task}}
+        {{ item.task }}
         <button
           @click="finalizeTask(item)"
           class="transparent has-text-primary is-pulled-right"
@@ -62,7 +67,7 @@ export default {
         .then(res => res.json())
         .then(result => {
           //Find a better way to resolve this wiht error
-          if(result.code && result.code ==401){
+          if (result.code && result.code == 401) {
             this.$router.push("/");
           }
           this.uuid = result.uuid;
@@ -92,7 +97,7 @@ export default {
         })
           .then(res => res.json())
           .then(list => {
-            this.tasks = list;
+            this.tasks = list.filter(task => task.finalizedAt == undefined);
             this.newTask = {
               task: ""
             };
